@@ -16,35 +16,59 @@ allowSelfSignedHttps(True) # this line is needed if you use self-signed certific
 # More information can be found here:
 # https://docs.microsoft.com/azure/machine-learning/how-to-deploy-advanced-entry-script
 data =  {
-  "input_data": {
-    "columns": [
-      "Product Name",
-      "Ratings",
-      "Processor",
-      "RAM",
-      "Operating System",
-      "ROM",
-      "Display",
-      "Brand",
-      "RAM Type",
-      "ROM Type"
-    ],
-    "index": [],
-    "data": []
-  }
+  "Inputs": {
+    "input1": [
+      {
+        "Ratings": 4.47,
+        "Price": 94990,
+        "Processor": "amd ryzen 9 octa core ",
+        "RAM": 16,
+        "Operating System": "windows 11",
+        "ROM": 1,
+        "Display": "13.4",
+        "Brand": "ASUS",
+        "RAM Type": "LPDDR5",
+        "ROM Type": "SSD"
+      },
+      {
+        "Ratings": 4.31,
+        "Price": 47990,
+        "Processor": "amd ryzen 5 hexa core ",
+        "RAM": 8,
+        "Operating System": "windows 11",
+        "ROM": 512,
+        "Display": "15.6",
+        "Brand": "MSI",
+        "RAM Type": "DDR5",
+        "ROM Type": "SSD"
+      },
+      {
+        "Ratings": 4.31,
+        "Price": 36990,
+        "Processor": "intel core i3  (12th gen)",
+        "RAM": 8,
+        "Operating System": "windows 11",
+        "ROM": 512,
+        "Display": "15.6",
+        "Brand": "ASUS",
+        "RAM Type": "DDR4",
+        "ROM Type": "SSD"
+      }
+    ]
+  },
+  "GlobalParameters": {}
 }
 
 body = str.encode(json.dumps(data))
 
-url = 'https://penoshdf-mxwmo.southindia.inference.ml.azure.com/score'
+url = 'http://56906309-5ddb-4c7e-8586-1b32fbcb311d.southindia.azurecontainer.io/score'
 # Replace this with the primary/secondary key or AMLToken for the endpoint
-api_key = 'w7AeMG1u54jHSh7o9y91B1Gn8EiBqbi3'
+api_key = ''
 if not api_key:
     raise Exception("A key should be provided to invoke the endpoint")
 
-# The azureml-model-deployment header will force the request to go to a specific deployment.
-# Remove this header to have the request observe the endpoint traffic rules
-headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key), 'azureml-model-deployment': 'best-ml-model-1' }
+
+headers = {'Content-Type':'application/json', 'Authorization':('Bearer '+ api_key)}
 
 req = urllib.request.Request(url, body, headers)
 
