@@ -1,0 +1,83 @@
+{
+    "name": "dataflow1",
+    "properties": {
+        "type": "MappingDataFlow",
+        "typeProperties": {
+            "sources": [
+                {
+                    "dataset": {
+                        "referenceName": "DelimitedText1",
+                        "type": "DatasetReference"
+                    },
+                    "name": "source1"
+                }
+            ],
+            "sinks": [
+                {
+                    "dataset": {
+                        "referenceName": "DelimitedText2",
+                        "type": "DatasetReference"
+                    },
+                    "name": "sink1"
+                }
+            ],
+            "transformations": [
+                {
+                    "name": "derivedColumn1"
+                },
+                {
+                    "name": "select1"
+                }
+            ],
+            "scriptLines": [
+                "source(output(",
+                "          {Product Name} as string,",
+                "          Ratings as string,",
+                "          Price as string,",
+                "          Processor as string,",
+                "          RAM as string,",
+                "          {Operating System} as string,",
+                "          ROM as string,",
+                "          Display as string",
+                "     ),",
+                "     allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     limit: 100,",
+                "     ignoreNoFilesFound: false) ~> source1",
+                "source1 derive({Product Name} = trim(split({Product Name}, \"-\")[1]),",
+                "          Brand = trim(split({Product Name},\" \")[1]),",
+                "          Ratings = trim(left(Ratings,4)),",
+                "          Price = replace(split(Price, '₹')[2],\",\",\"\"),",
+                "          Processor = replace(lower(Processor), 'processor', ''),",
+                "          RAM = trim(left(RAM,2)),",
+                "          {RAM Type} = trim(split(RAM,\" \")[3]),",
+                "          {Operating System} = trim(replace(lower({Operating System}), 'operating system','')),",
+                "          ROM = trim(split(ROM,\" \")[1]),",
+                "          {ROM Type} = trim(split(ROM,\" \")[3]),",
+                "          Display = replace(lower(trim(split(split(Display, '(')[2], ')')[1])),'inch','')) ~> derivedColumn1",
+                "derivedColumn1 select(mapColumn(",
+                "          Ratings,",
+                "          Price,",
+                "          Processor,",
+                "          RAM,",
+                "          {Operating System},",
+                "          ROM,",
+                "          Display,",
+                "          Brand,",
+                "          {RAM Type},",
+                "          {ROM Type}",
+                "     ),",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> select1",
+                "select1 sink(allowSchemaDrift: true,",
+                "     validateSchema: false,",
+                "     skipDuplicateMapInputs: true,",
+                "     skipDuplicateMapOutputs: true) ~> sink1"
+            ]
+        }
+    }
+}
+
+
+
+
