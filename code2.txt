@@ -1,0 +1,17 @@
+with python
+url =https://www.flipkart.com/search?q=laptop&sid=6bo%2Cb5g&as=on&as-show=on&otracker=AS_QueryStore_OrganicAutoSuggest_1_2_na_na_na&otracker1=AS_QueryStore_OrganicAutoSuggest_1_2_na_na_na&as-pos=1&as-type=RECENT&suggestionId=laptop%7CLaptops&requestId=18952d61-499e-45a8-8958-b4fb54811ead&as-backfill=on&page=1
+download the url webpage as flipkart.html
+read file flipkart.html and parse it with beautifulsoup
+
+find all
+div with class="_3pLy-c row" 
+for all divs
+try find div with class="_4rR01T"" and store in product_name
+except product_name = ""
+try find div with class="gUuXy-" and store it in ratings
+except ratings = ""
+try find div with class="_3tbKJL" and store it to price
+except price = ""
+try find div with class="fMghEO"and find all li with class="rgWa7D"store each 'rgWa7D' class in seperate like processor,Ram,Operating_system,ROM,Display
+except=""
+print all the columns

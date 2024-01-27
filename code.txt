@@ -1,0 +1,20 @@
+with python
+read file Amazon.html and parse it with beautifulsoup
+div class="a-section a-spacing-base"
+find all
+div with class="puis-card-container s-card-container s-overflow-hidden aok-relative puis-expand-height puis-include-content-margin puis puis-v10z24jan9eq7y2d0r3vu7asnzd s-latency-cf-section puis-card-border" 
+for all divs
+try find span with class="a-size-base-plus a-color-base a-text-normal" and store product_description
+except product_description = ""
+find span with class="a-price-whole" and store it to price
+except product_description = ""
+find span with class="a-icon-alt" and store it to ratings
+except product_description = ""
+find span with class="a-badge-text" data-a-badge-color="sx-cloud" and store it to product_remarks
+except product_description = ""
+find span with class="a-letter-space" and store it to discount
+except product_description = ""
+print all the values in the given columns
+
+url = f'https://www.amazon.in/s?i=computers&rh=n%3A1375424031&fs=true&page=2&qid=1699510603&ref=sr_pg_{i}'
+urls =[ url for i in range(100)

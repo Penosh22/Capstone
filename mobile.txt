@@ -1,0 +1,24 @@
+with python
+
+for i = 1 to 400
+url =f"https://www.flipkart.com/search?q=mobile&otracker=search&otracker1=search&marketplace=FLIPKART&as-show=on&as=off&page={i}"
+
+find all
+div with class="_3pLy-c row" 
+for all divs
+try find div with class="_4rR01T"" and store in product_name
+except product_name = ""
+try find div with class="gUuXy-" and store it in ratings
+except ratings = ""
+try find div with class="_3tbKJL" and store it to price
+except price = ""
+try find div with class="fMghEO"and find all li with class="rgWa7D"store each 'rgWa7D' class in seperate columns like processor,Ram,ROM,Display,Rear camera,front camera,Battery,
+except=""
+split all the li class values with "|" 
+if value has "ROM" in it store it in ROM columns else ""
+if value has "RAM" in it store it in RAM columns else ""
+if value has "camera" in it value in first position store it in Rear camera columns else "" and second postion (after split) values store it in front camera column
+if value has "Display" in it store it in Display columns else ""
+if value has "processor" in it store it in processor columns else ""
+if value has "Battery" in it store it in Battery columns else ""
+print all the columns
